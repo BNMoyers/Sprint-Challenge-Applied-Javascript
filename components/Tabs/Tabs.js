@@ -23,18 +23,17 @@ class TabLink {
 
      // Map over the newly converted NodeList we just created in our if statement above. Convert each this.cards element into a new instance of the TabCard class. Pass in a card object to the TabCard class. 
      console.log('this.cards before split', this.cards)
-     this.cards = Array.from(this.cards)
-     this.cards.map(card => new TabCard(card));
+     this.cards = Array.from(this.cards).map(card => new TabCard(card));
 console.log('cards array',this.cards)
     // Add a click event that invokes this.selectTab
-    this.tabElement.addEventListener('click', () => this.selectTab);
-  }
+    this.tabElement.addEventListener('click', () => this.selectTab());
+  };
 
   selectTab(){
 
     // Select all elements with the .tab class on them
     const tabs = document.querySelectorAll('.tab');
-    
+    console.log('tabs in selectTab', tabs)
     // Iterate through the NodeList removing the .active-tab class from each element
     tabs.forEach(element => element.classList.remove('active-tab'))
 
@@ -42,7 +41,8 @@ console.log('cards array',this.cards)
     const cards = document.querySelectorAll('.card');
 
     // Iterate through the NodeList setting the display style each one to 'none'
-    cards.forEach(card => 'display: none')
+    cards.forEach(card =>
+      card.style.display =  'none')
     
     // Add a class of ".active-tab" to this.tabElement
     this.tabElement.classList.add('.active-tab');
@@ -55,14 +55,16 @@ console.log('cards array',this.cards)
 class TabCard {
   constructor(cardElement){
     // Assign this.cardElement to the cardElement DOM reference
-    // this.cardElement;
+    this.cardElement = cardElement;
   }
   selectCard(){
     // Update the style of this.cardElement to display = "flex"
-    // this.cardElement;
+    this.cardElement.style.display = 'flex';
+    console.log('this is where select card is')
   }
 
 }
+
 
 /* START HERE: 
 
@@ -80,5 +82,5 @@ let tabs = document.querySelectorAll('.tab')
 tabs.forEach((tabElement) => {
   console.log('tabs',tabs);
   new TabLink(tabElement)
-});
 
+});
